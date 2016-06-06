@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+        <div infinite-scroll='loadMore()'>
+            <!--<div>-->
+            <div ng-repeat="info in newsInit">
+                <div ng-repeat="msg in info" style="padding: 10px 0px; border-bottom: 1px dashed #ddd">
+                    <p style="font-size: 16px">
+                        <b>{{msg.p_name}}</b>
+                    </p>
+                    <p>
+                        {{msg.time}} -
+                        {{msg.his}} -
+                        {{msg.week}}
+                    </p>
+                    <p>
+                        <span style="color: #276e85">{{msg.user_name}}</span> -
+                        {{msg.m_name}}
+                    </p>
+                    <p>
+                        {{msg.content | splite}}
+                        <!--{{msg.rid}}-->
+                    </p>
+                </div>
+            </div>
+            <div ng-repeat="info in news">
+                <div ng-repeat="msg in info" style="padding: 10px 0px; border-bottom: 1px dashed #ddd">
+                    <p style="font-size: 16px">
+                        <b>{{msg.p_name}}</b>
+                    </p>
+                    <p>
+                        {{msg.time}} -
+                        {{msg.his}} -
+                        {{msg.week}}
+                    </p>
+                    <p>
+                         <span style="color: #276e85">{{msg.user_name}}</span> -
+                        {{msg.m_name}}
+                    </p>
+                    <p ng-repeat="infoMsg in (msg.content | splitArr)">
+                        <!--如果返回的数组的长度大于1那么就添加编号,反之只有一条,就直接显示条目,不需要编号-->
+                        <span ng-if="(msg.content | splitArr).length > 1">{{$index+1}}. {{infoMsg}}</span>
+                        <span ng-if="(msg.content | splitArr).length <= 1">{{infoMsg}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

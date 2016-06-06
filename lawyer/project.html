@@ -1,0 +1,135 @@
+<p class="text-right">
+    <label>项目状态:</label>
+    <select class="changeProjectStatus" ng-model="status" ng-change="statusChange()">
+        <option value="">所有项目</option>
+        <option value="督办">督办</option>
+        <option value="结项">结项</option>
+    </select>
+</p>
+<div class="row">
+    <div class="col-xs-12" ng-if="data.length==''">
+        <p>暂无项目</p>
+    </div>
+    <div class="col-sm-4 col-xs-12" ng-repeat="info in data track by $index">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <label class="overNoWrap" style="margin-bottom: 0px"><a href="#/endProject/{{info.pid}}"
+                                                                            style="color: #333" ng-click="projectName(info.name)">{{info.name}}</a></label>
+                </div>
+            </div>
+            <div class="panel-body">
+                <!--指派项目经理-->
+                <a href="#/endProject/{{info.pid}}" style="color: #333;" ng-click="projectName(info.name)">
+                    <p>标<span style="margin: 0 4px"></span>的<span style="margin: 0 4px 0 3px"></span>额: &nbsp;{{info.money}}
+                    </p>
+                    <p>
+                        状<span style="margin: 0 14px"></span>态:
+                        <span class="themeColor">&nbsp;{{info.status}}</span>
+                    </p>
+                    <!--<p>项目经理: &nbsp;{{info.manager_name}}</p>-->
+                    <p style="margin-bottom: 0px">创建时间: &nbsp;{{info.create_time}}</p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 模态框（指派） -->
+<div class="modal fade" id="assign" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    指派项目经理
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr ng-repeat="info in managerListData">
+                        <td>
+                            <p>
+                                <input type="radio" name="managerName" ng-click="changeName(info.id)"/> &nbsp;<span>{{info.name}}</span>
+                            </p>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="assignManager()">
+                    指派
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框(提交评审补充材料) -->
+<div class="modal fade" id="signFile" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" ng-controller="signFile">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    补充材料
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <!--注意file是一个对象 ng-model file.name就是选择文件的名称-->
+                    <div class="btn btn-default" ngf-select ng-model="file" >请选择文件</div>
+                    <span style="margin-right: 20px;">{{file.name}}</span>
+                    <div style="clear: both"></div>
+                    <!--这是现实进度条的部分-->
+                    <div class="progress-striped" style="display: none; margin-top: 10px">
+                        <img src="../common/images/loading.gif" style="width: 100%; height: 11px" />
+                        <p></p>
+                        <p style="color: #276e85">正在上传,请稍后! 上传完毕,界面将自动刷新.</p>
+                    </div>
+                    <!--/这是现实进度条的部分-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="signFile()">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--分页-->
+<table>
+    <tr>
+        <td>
+            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm"
+                        boundary-links="true" rotate="false" num-pages="numPages"
+                        ng-change="pageChanged(bigCurrentPage)"></pagination>
+        </td>
+        <td>
+            &nbsp;&nbsp; 总共: <span class="text-primary">{{bigTotalItems}}</span> 条
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $(function () {
+        // 给这两个class的标签添加鼠标移动上去提示效果,只要给标签添加title属性即可
+        $(".glyphicon-edit, .glyphicon-remove, .glyphicon-ok").tooltip();
+    });
+</script>

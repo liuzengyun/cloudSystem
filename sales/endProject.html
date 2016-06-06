@@ -1,0 +1,36 @@
+<blockquote><p style="font-size: 18px" class="text-theme">{{projectName}}</p></blockquote>
+<ul id="myTab" class="nav nav-tabs">
+    <li>
+        <a href="#/baseInfo/{{commonPid}}">基本信息</a>
+    </li>
+    <li>
+        <a href="#/speed/{{commonPid}}">进度</a>
+    </li>
+    <li>
+        <a href="#/files/{{commonPid}}">文件</a>
+    </li>
+    <li class="active">
+        <a href="#/endProject/{{commonPid}}">结项</a>
+    </li>
+</ul>
+<br/>
+<div id="myTabContent" class="tab-content">
+    <div class="row">
+        <div class="col-sm-12" ng-if="endProjectData.status == false">
+            <p>暂无结项信息</p>
+        </div>
+        <div class="col-sm-3 col-xs-6" ng-repeat="info in endProjectData.data">
+            <a href="#/endProjectInfo/{{info.pmid}}" style="color: #276e85; font-weight: bold;" ng-click="moduleName(info.module)">
+                <div class="well text-center" style="position: relative">
+                    <p style="margin-top: 10px">
+                        {{info.module}}
+                    </p>
+                    <p style="position: absolute; top: 10px; right: 10px">
+                        <span class="label label-success" ng-if="info.finish == 1">已完成</span>
+                        <span ng-if="info.finish == 0" class="label label-warning">进行中</span>
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<blockquote><h4 class="text-theme">{{receivePname}}</h4></blockquote>
+<ul id="myTab" class="nav nav-tabs">
+    <li>
+        <a href="#/project/baseInfo/{{pid}}">基本信息</a>
+    </li>
+    <li>
+        <a href="#/project/files/{{pid}}">文件</a>
+    </li>
+    <li class="active">
+        <a href="#/project/speed/{{pid}}">进度</a>
+    </li>
+    <li>
+        <a href="#/project/module/{{pid}}">环节与节点</a>
+    </li>
+</ul>
+<br/>
+<!--splite为自定义过滤器-->
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="speed">
+        <!--包含公共的进度文件-->
+        <div ng-include="'../common/speed.html'"></div>
+    </div>
+</div>

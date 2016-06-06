@@ -1,0 +1,43 @@
+<div class="row">
+    <!--<div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-1">-->
+    <div class="data1">
+        <div class="col-sm-6 col-xs-12 text-right" style="border-right: 1px solid #276e85">
+            <h4><b class="text-theme">律师遴选阶段</b></h4>
+            <p ng-if="data.type1.length == 0">暂无信息</p>
+            <!--rowBg自定义隔行变色的指令-->
+            <div ng-repeat="info1 in data.type1" class="rowBg" style="padding: 10px">
+                <p>操作时间: {{info1.time}}</p>
+                <p>操<span style="margin: 0px 4px"></span>作<span style="margin: 0px 3px"></span>人: <span
+                        style="color: #276e85">{{info1.user_name}}</span></p>
+                <p>操作详情: {{info1.content | splite}}</p>
+            </div>
+        </div>
+        <br/>
+        <div class="col-sm-6 col-sm-offset-6 col-xs-12" style="position: relative; left: -1px; border-left: 1px solid #276e85">
+            <h4><b class="text-theme">案件督办</b></h4>
+            <p ng-if="data.type2.length == 0">暂无信息</p>
+            <div ng-repeat="info2 in data.type2" style="border-bottom: 1px solid #276e85; padding: 10px 0px">
+                <div ng-repeat="msg in info2 track by $index" class="rowBg" style="padding: 10px">
+                    <!--<div style="border-top: 1px dashed #aaa; margin-bottom: 10px"-->
+                    <!--ng-if="$index % 2 != 0"></div>-->
+                    <p>操作时间: {{msg.time}}</p>
+                    <p>操<span style="margin: 0px 4px"></span>作<span style="margin: 0px 3px"></span>人: <span
+                            style="color: #276e85"> {{msg.user_name}}</span></p>
+                    <p>操作详情: {{msg.content | splite}}</p>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="col-sm-6 col-xs-12 text-right" style="border-right: 1px solid #276e85">
+            <h4><b class="text-theme">结项</b></h4>
+            <p ng-if="data.type3.length == 0">暂无信息</p>
+            <div ng-repeat="info3 in data.type3" class="rowBg" style="padding: 10px">
+                <p>操作时间: {{info3.time}}</p>
+                <p>操<span style="margin: 0px 4px"></span>作<span style="margin: 0px 3px"></span>人: <span
+                        style="color: #276e85">{{info3.user_name}}</span></p>
+                <p>操作详情: {{info3.content | splite}}</p>
+            </div>
+        </div>
+        <br/>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<blockquote><p style="font-size: 18px" class="text-theme">{{projectName}}</p></blockquote>
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#/endProject/{{commonPid}}">案件督办</a>
+    </li>
+    <li>
+        <a href="#/baseInfo/{{commonPid}}">基本信息</a>
+    </li>
+    <li>
+        <a href="#/speed/{{commonPid}}">进度</a>
+    </li>
+    <li>
+        <a href="#/files/{{commonPid}}">文件</a>
+    </li>
+</ul>
+<br/>
+<div id="myTabContent" class="tab-content">
+    <div class="row">
+        <div class="col-sm-12" ng-if="endProjectData.status == false">
+            <p>暂无结项信息</p>
+        </div>
+        <div class="col-sm-3 col-xs-6" ng-repeat="info in data.data">
+            <a href="javascript:;" style="color: #276e85; font-weight: bold;" ng-click="queryName(info.id, info.name)">
+                <!-- changeBgColor 是自定义指令,单击改变背景颜色 -->
+                <div class="well text-center changeBgColor">
+                    <p style="margin-top: 10px">
+                        <span>{{info.name}}</span>
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <p class="text-right">
+        <a class="btn btn-default" href="#/endProject/{{commonPid}}">返回</a>
+        <a class="btn btn-theme" ng-click="addModel()">添加</a>
+    </p>
+    <br />
+    <br />
+    <br />
+</div>

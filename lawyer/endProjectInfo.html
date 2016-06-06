@@ -1,0 +1,341 @@
+<blockquote><p style="font-size: 18px" class="text-theme">{{projectName}}</p></blockquote>
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#/endProject/{{commonPid}}">案件督办</a>
+    </li>
+    <li>
+        <a href="#/baseInfo/{{commonPid}}">基本信息</a>
+    </li>
+    <li>
+        <a href="#/speed/{{commonPid}}">进度</a>
+    </li>
+    <li>
+        <a href="#/files/{{commonPid}}">文件</a>
+    </li>
+    <li>
+        <a href="#/trial/{{commonPid}}">庭审信息</a>
+    </li>
+</ul>
+<p style="height: 10px"></p>
+<div id="myTabContent" class="tab-content">
+    <p class="text-theme h4">
+        {{moduleName}}
+    </p>
+    <div class="row">
+        <div class="col-sm-4 col-xs-12">
+            <div class="well">
+                <h5 class="text-center text-theme">我的待办事项</h5>
+                <div style="min-height: 250px; overflow: auto; border-bottom: 1px dashed red; margin-bottom: 10px;">
+                    <div ng-if="info.user_type == 5 && info.item_status == 1 || info.user_type == 5 && info.item_status == 3"
+                         ng-repeat="info in projectModuleData.data"
+                         style="border-top: 1px dashed #aaa; padding-bottom: 10px">
+                        <input ng-if="info.operate == 0" type="checkbox"
+                               ng-click="itemChange(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"/>
+                        <input ng-if="info.operate == 1" type="checkbox"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileType"/>
+                        <input ng-if="info.operate == 2" type="checkbox"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeTwo"/>
+                        <input ng-if="info.operate == 3" type="checkbox"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeThree"/>
+                        <input ng-if="info.operate == 5" type="checkbox"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeFive"/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">
+                                <span ng-if="info.item_status == 3" class="red">{{info.deadline}}</span>
+                                <span ng-if="info.item_status != 3" class="text-theme">{{info.deadline}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-height: 250px; overflow: auto">
+                    <div ng-if="info.user_type == 5 && info.item_status == 2" ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input type="checkbox" checked disabled="disabled"/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">{{info.deadline}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-xs-12">
+            <div class="well">
+                <h5 class="text-center text-theme">项目经理待办事项</h5>
+                <div style="min-height: 250px; overflow: auto; border-bottom: 1px dashed red; margin-bottom: 10px;">
+                    <div ng-if="info.user_type == 3 && info.item_status == 1 || info.user_type == 3 && info.item_status == 3"
+                         ng-repeat="info in projectModuleData.data"
+                         style="border-top: 1px dashed #aaa; padding-bottom: 10px">
+                        <!--info.operate是操作类型-->
+                        <input ng-if="info.operate == 0" type="checkbox" disabled="disabled"
+                               ng-click="itemChange(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"/>
+                        <input ng-if="info.operate == 1" type="checkbox" disabled="disabled"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileType"/>
+                        <input ng-if="info.operate == 2" type="checkbox" disabled="disabled"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeTwo"/>
+                        <input ng-if="info.operate == 3" type="checkbox" disabled="disabled"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeThree"/>
+                        <input ng-if="info.operate == 5" type="checkbox" disabled="disabled"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeFive"/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">
+                                <span ng-if="info.item_status == 3" class="red">{{info.deadline}}</span>
+                                <span ng-if="info.item_status != 3" class="text-theme">{{info.deadline}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-height: 250px; overflow: auto">
+                    <div ng-if="info.user_type == 3 && info.item_status == 2" ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input type="checkbox" checked disabled="disabled"/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">{{info.deadline}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-xs-12">
+            <div class="well">
+                <h5 class="text-center text-theme">客户待办事项</h5>
+                <div style="min-height: 250px; overflow: auto; border-bottom: 1px dashed red; margin-bottom: 10px;">
+                    <div ng-if="info.user_type == 4 && info.item_status == 1 || info.user_type == 4 && info.item_status == 3"
+                         ng-repeat="info in projectModuleData.data"
+                         style="border-top: 1px dashed #aaa; padding-bottom: 10px">
+                        <input ng-if="info.operate == 0" type="checkbox" disabled="disabled"
+                               ng-click="itemChange(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"/>
+                        <input ng-if="info.operate == 1" type="checkbox" disabled="disabled"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileType"/>
+                        <input ng-if="info.operate == 2" type="checkbox" disabled="disabled"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeTwo"/>
+                        <input ng-if="info.operate == 3" type="checkbox" disabled="disabled"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeThree"/>
+                        <input ng-if="info.operate == 5" type="checkbox" disabled="disabled"
+                               ng-click="itemChangeType(info.pmiid, info.detail, info.mid, info.pid, info.pmid)"
+                               data-toggle="modal" data-target="#fileTypeFive"/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">
+                                <span ng-if="info.item_status == 3" class="red">{{info.deadline}}</span>
+                                <span ng-if="info.item_status != 3" class="text-theme">{{info.deadline}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-height: 250px; overflow: auto">
+                    <div ng-if="info.user_type == 4 && info.item_status == 2" ng-repeat="info in projectModuleData.data"
+                         style="border-bottom: 1px dashed #aaa; padding-bottom: 10px">
+                        <input type="checkbox" checked disabled="disabled"/>
+                        <div>
+                            <div ng-repeat="msg in info.detail | splitArr">
+                                <p>{{$index+1}}. {{msg}}</p>
+                            </div>
+                            <p class="text-right">{{info.deadline}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框(type=1上传文件) -->
+    <div class="modal fade" id="fileType" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" ng-controller="itemUploadFile">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        上传文件
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <p>选择文件类型</p>
+                        <p>
+                            <select class="form-control" ng-model="fileType">
+                                <option value="1">案件材料与证据</option>
+                                <option value="2">律师工作成效</option>
+                                <option value="3">官方文件</option>
+                                <option value="4">帮瀛内部文件</option>
+                            </select>
+                        </p>
+                        <!--注意file是一个对象 ng-model file.name就是选择文件的名称-->
+                        <div class="btn btn-default" ngf-select ng-model="file" >请选择文件</div>
+                        <span style="margin-right: 20px;">{{file.name}}</span>
+                        <div style="clear: both"></div>
+                        <!--这是现实进度条的部分-->
+                        <div class="progress-striped" style="display: none; margin-top: 10px">
+                            <img src="../common/images/loading.gif" style="width: 100%; height: 11px" />
+                            <p></p>
+                            <p style="color: #276e85">正在上传,请稍后! 上传完毕,界面将自动刷新.</p>
+                        </div>
+                        <!--/这是现实进度条的部分-->
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="fileTypeOne()">
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框(type=2 填写开庭时间) -->
+    <div class="modal fade" id="fileTypeTwo" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" ng-controller="itemUploadFile">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        填写第一次开庭时间、地点
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label>开庭时间</label>
+                        <p>
+                            <input type="datetime-local" class="form-control" placeholder="开庭时间"
+                                   ng-model="typeTwoTime"/>
+                        </p>
+                        <label>开庭地点</label>
+                        <p>
+                            <input type="text" class="form-control" placeholder="开庭地址" ng-model="typeTwoAddress"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="fileTypeTwo(typeTwoTime, typeTwoAddress)">
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框(type=3 填写律师信息) -->
+    <div class="modal fade" id="fileTypeThree" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" ng-controller="itemUploadFile">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        填写律师信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <p>
+                            <input type="text" class="form-control" placeholder="律师姓名" ng-model="tname"/>
+                        </p>
+                        <p>
+                            <input type="text" class="form-control" placeholder="所在律所" ng-model="tfirm"/>
+                        </p>
+                        <p>
+                            <input type="text" class="form-control" placeholder="部门" ng-model="tdepartment"/>
+                        </p>
+                        <p>
+                            <input type="text" class="form-control" placeholder="职位" ng-model="tposition"/>
+                        </p>
+                        <p>
+                            <input type="text" class="form-control" placeholder="手机" ng-model="tphone"/>
+                        </p>
+                        <p>
+                            <input type="text" class="form-control" placeholder="座机" ng-model="ttel"/>
+                        </p>
+                        <p>
+                            <input type="text" class="form-control" placeholder="邮箱" ng-model="temail"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="fileTypeThree(tname, tfirm, tdepartment, tposition, tphone, ttel, temail)">
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框(type=5 填写开庭时间) -->
+    <div class="modal fade" id="fileTypeFive" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" ng-controller="itemUploadFile">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        填写下一次开庭时间、地点
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label>开庭时间</label>
+                        <p>
+                            <input type="datetime-local" class="form-control" placeholder="开庭时间"
+                                   ng-model="typeTwoTime"/>
+                        </p>
+                        <label>开庭地点</label>
+                        <p>
+                            <input type="text" class="form-control" placeholder="开庭地址" ng-model="typeTwoAddress"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="fileTypeFive(typeTwoTime, typeTwoAddress)">
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
